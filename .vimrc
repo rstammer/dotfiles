@@ -25,10 +25,6 @@ set cinwords=if,else,while,do,for,switch,case
 " enable Search highlightning
 set hlsearch
 
-" set up powerline
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-let g:Powerline_symbols = 'fancy'
-
 set ruler  " Ruler on
 set nu  " Line numbers on
 set nowrap  " Line wrapping off
