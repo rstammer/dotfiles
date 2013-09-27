@@ -4,6 +4,9 @@ colorscheme ir_black
 "colorscheme koehler
 "colorscheme desert
 
+execute pathogen#infect()
+call pathogen#helptags()
+
 "enable 256 colors
 set t_Co=256
 
@@ -52,21 +55,41 @@ function! <SID>StripTrailingWhitespaces()
   let @/=_s
   call cursor(l, c)
 endfunction
-autocmd BufWritePre *.rb,*.erb,*.py,*.js :call <SID>StripTrailingWhitespaces()
-
-" NERDTreeTabs behavior
-let g:nerdtree_tabs_open_on_gui_startup=0
-let g:nerdtree_tabs_open_on_new_tab=0
-let g:NERDTreeHijackNetrw=0
+autocmd BufWritePre *.haml,*.rb,*.erb,*.py,*.js :call <SID>StripTrailingWhitespaces()
 
 " map YankRing-Window
 nnoremap <silent> <F6> :YRShow<CR>
 
-" show hidden files in NERDTree
-let NERDTreeShowHidden=1
+function! RSpecZeus()
+  execute("!zeus rspec " . expand("%p"))
+endfunction
 
-" swapping through buffers
-":nnoremap <F5> :buffers<CR>:buffer<Space>
+map ,zr :call RSpecZeus()<CR>
 
-execute pathogen#infect()
-call pathogen#helptags()
+" unite.vim
+let g:unite_source_history_yank_enable = 1
+let g:unite_source_history_yank_enable = 1
+let g:unite_source_rec_max_cache_files = 10000
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+" shortcuts
+nnoremap <leader>t :<C-u>tabnew<CR>
+
+" I'm in love with this command
+nnoremap <leader>r :<C-u>Unite file_mru<CR>
+nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<CR>
+nnoremap <leader>g :Unite grep:.<cr>
+nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+
+function! s:unite_settings()
+  " Play nice with supertab
+  let b:SuperTabDisabled=1
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction
