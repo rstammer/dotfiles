@@ -7,10 +7,14 @@ colorscheme ir_black
 "enable 256 colors
 set t_Co=256
 
+let mapleader = ","
+set clipboard=unnamed
+
 filetype on  " Automatically detect file types.
 set nocompatible
 set nobackup
 syntax enable
+set synmaxcol=256
 
 " Formatting (some of these are for coding in C and C++)
 set ts=2  " Tabs are 2 spaces
