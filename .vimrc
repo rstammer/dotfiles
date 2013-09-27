@@ -57,9 +57,7 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 autocmd BufWritePre *.haml,*.rb,*.erb,*.py,*.js :call <SID>StripTrailingWhitespaces()
 
-" map YankRing-Window
-nnoremap <silent> <F6> :YRShow<CR>
-
+" using Rspec with zeus
 function! RSpecZeus()
   execute("!zeus rspec " . expand("%p"))
 endfunction
@@ -76,7 +74,6 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " shortcuts
 nnoremap <leader>t :<C-u>tabnew<CR>
 
-" I'm in love with this command
 nnoremap <leader>r :<C-u>Unite file_mru<CR>
 nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<CR>
 nnoremap <leader>g :Unite grep:.<cr>
