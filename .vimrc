@@ -64,6 +64,17 @@ endfunction
 
 map ,zr :call RSpecZeus()<CR>
 
+
+" lint.vim
+let lint_default = 0
+
+function! LintAndSave()
+  execute(":LintVimToggle")
+  execute(":w")
+  execute(":LintVimToggle")
+endfunction
+map ,l  :call LintAndSave()<CR><C-w><C-w>
+
 " unite.vim
 let g:unite_source_history_yank_enable = 1
 let g:unite_source_history_yank_enable = 1
