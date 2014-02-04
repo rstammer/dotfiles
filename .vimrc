@@ -1,11 +1,61 @@
+" ------------------------------------------
+" Setting up Vundle - the vim plugin bundler
+" ------------------------------------------
+
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+
+if !filereadable(vundle_readme)
+  echo "Installing Vundle.."
+  echo ""
+  silent !mkdir -p ~/.vim/bundle
+  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+  let iCanHazVundle=0
+endif
+
+"-------------------------------------------
+ 
+if has("gui_macvim")
+  set guioptions-=T "if using a GUI Version
+endif
+
+"---------------
+" VUNDLE CONFIG
+"---------------
+
+set nocompatible " be iMproved
+filetype off " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required!
+Bundle 'gmarik/vundle'
+
+" languages
+Bundle 'tpope/vim-rails.git'
+Bundle 'thoughtbot/vim-rspec'
+" workflow
+Bundle 'Shougo/unite.vim'
+Bundle 'tomtom/tcomment_vim'
+Bundle 'Shougo/vimproc.vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'joestelmach/lint.vim'
+Bundle 'godlygeek/tabular'
+Bundle 'rking/ag.vim'
+
+filetype plugin indent on " required!
+
+" -----------------------
+" BASIC VIM CONFIGURATION
+" -----------------------
+
 "colorscheme grb256
 "colorscheme railscasts
 colorscheme ir_black
 "colorscheme koehler
 "colorscheme desert
-
-execute pathogen#infect()
-call pathogen#helptags()
 
 "enable 256 colors
 set t_Co=256
