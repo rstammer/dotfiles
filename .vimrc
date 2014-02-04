@@ -58,12 +58,16 @@ endfunction
 autocmd BufWritePre *.haml,*.rb,*.erb,*.py,*.js :call <SID>StripTrailingWhitespaces()
 
 " using Rspec with zeus
+function! RSpecZeusLine()
+  execute("!zeus rspec " . expand("%p") . ":" . line("."))
+endfunction
+
 function! RSpecZeus()
   execute("!zeus rspec " . expand("%p"))
 endfunction
 
+map ,ZR :call RSpecZeusLine()<CR>
 map ,zr :call RSpecZeus()<CR>
-
 
 " lint.vim
 let lint_default = 0
