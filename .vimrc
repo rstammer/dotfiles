@@ -41,7 +41,6 @@ Bundle 'Shougo/unite.vim'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'scrooloose/syntastic'
-"Bundle 'joestelmach/lint.vim'
 Bundle 'godlygeek/tabular'
 Bundle 'rking/ag.vim'
 
@@ -119,16 +118,6 @@ endfunction
 map ,ZR :call RSpecZeusLine()<CR>
 map ,zr :call RSpecZeus()<CR>
 
-" lint.vim
-" let lint_default = 0
-"
-" function! LintAndSave()
-"   execute(":LintVimToggle")
-"   execute(":w")
-"   execute(":LintVimToggle")
-" endfunction
-" map ,l  :call LintAndSave()<CR><C-w><C-w>
-"
 " ---  unite.vim 
 
 " Use ag for search

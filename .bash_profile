@@ -14,7 +14,6 @@ alias interna="tmuxifier load-window tmux-windows/interna.window.sh"
 alias coupler="tmuxifier load-window tmux-windows/coupler.window.sh"
 alias c3po="tmuxifier load-window tmux-windows/c3po.window.sh"
 
-alias import_vimrc="rm ~/.vimrc && cp ~/private_projects/dotfiles/.vimrc ~/.vimrc"
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
