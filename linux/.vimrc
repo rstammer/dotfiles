@@ -1,20 +1,28 @@
-" -----------------------
-" BASIC VIM CONFIGURATION
-" -----------------------
+" NeoBundle ----------------------------------------
+if has('vim_starting')
+  set nocompatible
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
 
-"colorscheme grb256
-"colorscheme railscasts
+call neobundle#rc(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'CSApprox'
+NeoBundle 'syntastic'
+NeoBundle 'tpope/vim-rails'
+NeoBundle 'vim-rspec'
+NeoBundle 'tabular'
+NeoBundle 'tComment'
+
+filetype plugin indent on
+NeoBundleCheck
+" ---------------------------------------------------
+
 colorscheme ir_black
-"colorscheme koehler
-"colorscheme desert
-
-"enable 256 colors
-set t_Co=256
-
 let mapleader = ","
+set t_Co=256
 set clipboard=unnamed
-
-filetype on  " Automatically detect file types.
+filetype on  
 set nocompatible
 set nobackup
 syntax enable
@@ -57,7 +65,9 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 autocmd BufWritePre *.haml,*.rb,*.erb,*.py,*.js :call <SID>StripTrailingWhitespaces()
 
-" using Rspec with zeus
+" ---------------
+" RSpec with zeus
+" ---------------
 function! RSpecZeusLine()
 /  execute("!zeus rspec " . expand("%p") . ":" . line("."))
 endfunction
@@ -68,35 +78,4 @@ endfunction
 
 map ,ZR :call RSpecZeusLine()<CR>
 map ,zr :call RSpecZeus()<CR>
-
-" ---  unite.vim 
-" Use ag for search
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-  let g:unite_source_grep_recursive_opt = ''
-endif
-let g:unite_source_history_yank_enable = 1
-let g:unite_source_history_yank_enable = 1
-
-" shortcuts
 nnoremap <leader>t :<C-u>tabnew<CR>
-nnoremap <leader>f :Unite file_rec/async<cr>
-nnoremap <leader>r :<C-u>Unite file_mru<CR>
-nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<CR>
-nnoremap <leader>g :Unite grep:.<cr>
-nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
-
-" Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
-
-function! s:unite_settings()
-  " Play nice with supertab
-  let b:SuperTabDisabled=1
-  " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-endfunction
-
-execute pathogen#infect()
