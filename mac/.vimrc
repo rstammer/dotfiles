@@ -37,12 +37,12 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-rails.git'
 Bundle 'thoughtbot/vim-rspec'
 " workflow
-Bundle 'Shougo/unite.vim'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'godlygeek/tabular'
 Bundle 'rking/ag.vim'
+Bundle 'lambdatoast/elm.vim'
 
 filetype plugin indent on " required!
 
@@ -50,9 +50,13 @@ filetype plugin indent on " required!
 " BASIC VIM CONFIGURATION
 " -----------------------
 
+"let g:solarized_termcolors=256
+"set background=dark
+"colorscheme solarized
+colorscheme ir_black
 "colorscheme grb256
 "colorscheme railscasts
-colorscheme ir_black
+"colorscheme ir_black
 "colorscheme koehler
 "colorscheme desert
 
@@ -77,6 +81,10 @@ set smarttab
 set expandtab
 set nocp incsearch
 set cinwords=if,else,while,do,for,switch,case
+
+"encoding
+set encoding=utf-8
+set termencoding=utf-8
 
 " enable Search highlightning
 set hlsearch
@@ -106,6 +114,15 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 autocmd BufWritePre *.haml,*.rb,*.erb,*.py,*.js :call <SID>StripTrailingWhitespaces()
 
+" using Rspec with spring
+function! RSpecSpringLine()
+  execute("!spring rspec " . expand("%p") . ":" . line("."))
+endfunction
+
+function! RSpecSpring()
+  execute("!spring rspec " . expand("%p"))
+endfunction
+
 " using Rspec with zeus
 function! RSpecZeusLine()
   execute("!zeus rspec " . expand("%p") . ":" . line("."))
@@ -118,21 +135,9 @@ endfunction
 map ,ZR :call RSpecZeusLine()<CR>
 map ,zr :call RSpecZeus()<CR>
 
-" ---  unite.vim 
+map ,S :call RSpecSpringLine()<CR>
+map ,s :call RSpecSpring()<CR>
 
-" Use ag for search
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-  let g:unite_source_grep_recursive_opt = ''
-endif
-let g:unite_source_history_yank_enable = 1
-let g:unite_source_history_yank_enable = 1
-"let g:unite_source_rec_max_cache_files = 10000
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-
-" --- 
 
 " shortcuts
 nnoremap <leader>t :<C-u>tabnew<CR>
@@ -142,6 +147,12 @@ nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<CR>
 nnoremap <leader>g :Unite grep:.<cr>
 nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
 nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+
+" elm
+nnoremap <leader>el :ElmEvalLine<CR>
+vnoremap <leader>es :<C-u>ElmEvalSelection<CR>
+nnoremap <leader>ep :ElmPrintTypes<CR>
+nnoremap <leader>em :ElmMakeCurrentFile<CR>
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
@@ -153,3 +164,8 @@ function! s:unite_settings()
   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
 endfunction
+
+" opens search results in a window w/ links and highlight the matches
+command! -nargs=+ Grep execute 'silent grep! -I -r -n --exclude-dir=.git --exclude-dir=tmp --exclude=*.{log,sock,swo,swp}  . -e <args>' | copen | execute 'silent /<args>'
+" shift-control-* Greps for the word under the cursor
+:nmap <leader>g :Grep <c-r>=expand("<cword>")<cr><cr>
