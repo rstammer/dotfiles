@@ -36,6 +36,11 @@ Bundle 'gmarik/vundle'
 " languages
 Bundle 'tpope/vim-rails.git'
 Bundle 'thoughtbot/vim-rspec'
+
+" Other
+Bundle 'dermusikman/sonicpi.vim.git'
+
+
 " workflow
 Bundle 'tomtom/tcomment_vim'
 Bundle 'Shougo/vimproc.vim'
@@ -43,6 +48,8 @@ Bundle 'scrooloose/syntastic'
 Bundle 'godlygeek/tabular'
 Bundle 'rking/ag.vim'
 Bundle 'lambdatoast/elm.vim'
+Bundle 'tpope/vim-fugitive.git'
+Bundle 'altercation/vim-colors-solarized.git'
 
 filetype plugin indent on " required!
 
@@ -51,18 +58,12 @@ filetype plugin indent on " required!
 " -----------------------
 
 "let g:solarized_termcolors=256
-"set background=dark
-"colorscheme solarized
-colorscheme ir_black
-"colorscheme grb256
-"colorscheme railscasts
+set background=dark
+colorscheme solarized
 "colorscheme ir_black
-"colorscheme koehler
-"colorscheme desert
 
 "enable 256 colors
 set t_Co=256
-
 let mapleader = ","
 set clipboard=unnamed
 
@@ -82,6 +83,8 @@ set expandtab
 set nocp incsearch
 set cinwords=if,else,while,do,for,switch,case
 
+let g:syntastic_javascript_checkers = ['jshint']
+
 "encoding
 set encoding=utf-8
 set termencoding=utf-8
@@ -95,6 +98,7 @@ set nowrap  " Line wrapping off
 
 set ai " Automatically set the indent of a new line (local to buffer)
 set si " smartindent (local to buffer)
+autocmd Filetype gitcommit setlocal spell textwidth=72
 
 if has("autocmd")
   filetype indent on
@@ -113,6 +117,43 @@ function! <SID>StripTrailingWhitespaces()
   call cursor(l, c)
 endfunction
 autocmd BufWritePre *.haml,*.rb,*.erb,*.py,*.js :call <SID>StripTrailingWhitespaces()
+
+" shortcuts
+nnoremap <leader>t :<C-u>tabnew<CR>
+nnoremap <leader>gs :Gstatus<CR>
+
+" opens search results in a window w/ links and highlight the matches
+command! -nargs=+ Grep execute 'silent grep! -I -r -n --exclude-dir=.git --exclude-dir=tmp --exclude=*.{log,sock,swo,swp}  . -e <args>' | copen | execute 'silent /<args>'
+
+"OpenChangedFiles (<Leader>O)---------------------- {{{
+function! OpenChangedFiles()
+  only "Close all windows, unless they're modified"
+  let status = system('git status -s | grep "^ \?\(M\|A\)" | cut -d " " -f3')
+  let filenames = split(status, "\n")
+
+  if len(filenames) < 1
+    let status = system('git show --pretty="format:" --name-only')
+    let filenames = split(status, "\n")
+  endif
+
+  exec "edit " . filenames[0]
+
+  for filename in filenames[1:]
+    if len(filenames) > 4
+      exec "tabedit " . filename
+    else
+      exec "sp " . filename
+    endif
+  endfor
+endfunction
+command! OpenChangedFiles :call OpenChangedFiles()
+noremap<Leader>o :OpenChangedFiles <CR>
+" }}}
+
+" SonicPi
+"
+nnoremap <leader>m :silent w !sonic_pi<CR>
+nnoremap <leader>n :call system("sonic_pi stop")<CR>
 
 " using Rspec with spring
 function! RSpecSpringLine()
@@ -135,37 +176,6 @@ endfunction
 map ,ZR :call RSpecZeusLine()<CR>
 map ,zr :call RSpecZeus()<CR>
 
-map ,S :call RSpecSpringLine()<CR>
+map ,A :call RSpecSpringLine()<CR>
 map ,s :call RSpecSpring()<CR>
 
-
-" shortcuts
-nnoremap <leader>t :<C-u>tabnew<CR>
-nnoremap <leader>f :Unite file_rec/async<cr>
-nnoremap <leader>r :<C-u>Unite file_mru<CR>
-nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async<CR>
-nnoremap <leader>g :Unite grep:.<cr>
-nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
-
-" elm
-nnoremap <leader>el :ElmEvalLine<CR>
-vnoremap <leader>es :<C-u>ElmEvalSelection<CR>
-nnoremap <leader>ep :ElmPrintTypes<CR>
-nnoremap <leader>em :ElmMakeCurrentFile<CR>
-
-" Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
-
-function! s:unite_settings()
-  " Play nice with supertab
-  let b:SuperTabDisabled=1
-  " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-endfunction
-
-" opens search results in a window w/ links and highlight the matches
-command! -nargs=+ Grep execute 'silent grep! -I -r -n --exclude-dir=.git --exclude-dir=tmp --exclude=*.{log,sock,swo,swp}  . -e <args>' | copen | execute 'silent /<args>'
-" shift-control-* Greps for the word under the cursor
-:nmap <leader>g :Grep <c-r>=expand("<cword>")<cr><cr>
