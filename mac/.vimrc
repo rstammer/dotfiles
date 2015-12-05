@@ -90,9 +90,11 @@ set expandtab
 set nocp incsearch
 set cinwords=if,else,while,do,for,switch,case
 
-let g:syntastic_javascript_checkers = ['jshint']
 
-"encoding
+au BufRead,BufNewFile *.jsx set filetype=javascript
+au BufRead,BufNewFile *.es6 set filetype=javascript
+let g:syntastic_javascript_checkers = ['eslint']
+
 set encoding=utf-8
 set termencoding=utf-8
 
