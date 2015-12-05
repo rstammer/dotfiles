@@ -177,6 +177,7 @@ endfunction
 map ,as :call RSpecSpringLine()<CR>
 map ,s :call RSpecSpring()<CR>
 
+" agda-vim 
 nnoremap <buffer> <LocalLeader>l :Reload<CR>
 nnoremap <buffer> <LocalLeader>t :call Infer()<CR>
 nnoremap <buffer> <LocalLeader>r :call Refine("False")<CR>
@@ -189,6 +190,10 @@ nnoremap <buffer> <LocalLeader>n :call Normalize("False")<CR>
 nnoremap <buffer> <LocalLeader>N :call Normalize("True")<CR>
 nnoremap <buffer> <LocalLeader>M :call ShowModule()<CR>
 nnoremap <buffer> <LocalLeader>m :Metas<CR>
+
+" Add Agda libs 
+let g:agda_extraincpaths = ["agda-stdlib"]
+
 
 " funny ASCII 
 imap <leader>dunno ¯\_(ツ)_/¯
