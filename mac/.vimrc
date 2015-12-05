@@ -32,25 +32,28 @@ call vundle#rc()
 
 " let Vundle manage Vundle
 " required!
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " languages
-Bundle 'tpope/vim-rails.git'
-Bundle 'thoughtbot/vim-rspec'
-Bundle 'dag/vim2hs'
-Bundle 'derekelkins/agda-vim'
+Plugin 'tpope/vim-rails.git'
+Plugin 'thoughtbot/vim-rspec'
+Plugin 'dag/vim2hs'
+Plugin 'derekelkins/agda-vim'
+Plugin 'def-lkb/vimbufsync.git'
+Plugin 'trefis/coquille'
+Plugin 'elixir-lang/vim-elixir'
 
 " Other
-Bundle 'dermusikman/sonicpi.vim.git'
+Plugin 'dermusikman/sonicpi.vim.git'
 
 " workflow
-Bundle 'tomtom/tcomment_vim'
-Bundle 'Shougo/vimproc.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'godlygeek/tabular'
-Bundle 'rking/ag.vim'
-Bundle 'tpope/vim-fugitive.git'
-Bundle 'altercation/vim-colors-solarized.git'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'godlygeek/tabular'
+Plugin 'rking/ag.vim'
+Plugin 'tpope/vim-fugitive.git'
+Plugin 'altercation/vim-colors-solarized.git'
 
 filetype plugin indent on " required!
 
