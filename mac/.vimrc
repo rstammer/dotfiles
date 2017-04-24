@@ -1,87 +1,42 @@
-" ------------------------------------------
-" Setting up Vundle - the vim plugin bundler
-" ------------------------------------------
+set nocompatible
+filetype off
 
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+call plug#begin()
+Plug 'https://github.com/tpope/vim-rails.git'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-bundler'
+Plug 'thoughtbot/vim-rspec'
+Plug 'dag/vim2hs'
+Plug 'derekelkins/agda-vim'
+Plug 'trefis/coquille'
+Plug 'elixir-lang/vim-elixir'
+Plug 'dermusikman/sonicpi.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'tomtom/tcomment_vim'
+Plug 'scrooloose/syntastic'
+Plug 'godlygeek/tabular'
+Plug 'altercation/vim-colors-solarized'
+Plug 'jalvesaq/Nvim-R'
+call plug#end()
 
-if !filereadable(vundle_readme)
-  echo "Installing Vundle.."
-  echo ""
-  silent !mkdir -p ~/.vim/bundle
-  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-  let iCanHazVundle=0
-endif
-
-"-------------------------------------------
- 
-if has("gui_macvim")
-  set guioptions-=T "if using a GUI Version
-endif
-
-"---------------
-" VUNDLE CONFIG
-"---------------
-
-set nocompatible " be iMproved
-
-filetype off " required!
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required!
-Plugin 'gmarik/vundle'
-
-" languages
-Plugin 'tpope/vim-rails.git'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'dag/vim2hs'
-Plugin 'derekelkins/agda-vim'
-Plugin 'def-lkb/vimbufsync.git'
-Plugin 'trefis/coquille'
-Plugin 'elixir-lang/vim-elixir'
-
-" Other
-Plugin 'dermusikman/sonicpi.vim.git'
-
-" workflow
-Plugin 'tomtom/tcomment_vim'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'godlygeek/tabular'
-Plugin 'rking/ag.vim'
-Plugin 'tpope/vim-fugitive.git'
-Plugin 'altercation/vim-colors-solarized.git'
-
-filetype plugin indent on " required!
-
-" -----------------------
-" BASIC VIM CONFIGURATION
-" -----------------------
-
-"let g:solarized_termcolors=256
-set background=dark
+filetype plugin indent on
 colorscheme solarized
-"colorscheme ir_black
-
-"enable 256 colors
 set t_Co=256
 
 let mapleader = ","
 let maplocalleader = "."
 
-set clipboard=unnamed
+if $TMUX == ''
+  set clipboard+=unnamed
+endif
 
-filetype on  " Automatically detect file types.
 set nocompatible
 set nobackup
 syntax enable
 set synmaxcol=256
 
-" Formatting (some of these are for coding in C and C++)
-set ts=2  " Tabs are 2 spaces
+let g:netrw_banner = 1
+set ts=2  " Tabs ≡ 2 spaces
 set bs=2  " Backspace over everything in insert mode
 set shiftwidth=2  " Tabs under smart indent
 set autoindent
@@ -90,28 +45,19 @@ set expandtab
 set nocp incsearch
 set cinwords=if,else,while,do,for,switch,case
 
-
 au BufRead,BufNewFile *.jsx set filetype=javascript
 au BufRead,BufNewFile *.es6 set filetype=javascript
 let g:syntastic_javascript_checkers = ['eslint']
 
 set encoding=utf-8
 set termencoding=utf-8
-
-" enable Search highlightning
 set hlsearch
-
-set ruler  " Ruler on
-set nu  " Line numbers on
-set nowrap  " Line wrapping off
-
+set ruler
+set nu
+set nowrap
 set ai " Automatically set the indent of a new line (local to buffer)
 set si " smartindent (local to buffer)
 autocmd Filetype gitcommit setlocal spell textwidth=72
-
-if has("autocmd")
-  filetype indent on
-endif
 
 " http://vimcasts.org/episodes/tidying-whitespace/"
 function! <SID>StripTrailingWhitespaces()
@@ -125,14 +71,14 @@ function! <SID>StripTrailingWhitespaces()
   let @/=_s
   call cursor(l, c)
 endfunction
-autocmd BufWritePre *.haml,*.rb,*.erb,*.py,*.js :call <SID>StripTrailingWhitespaces()
+autocmd BufWritePre *.haml,*.rb,*.erb,*.py,*.js,*.rake,*.ex,*.exs,*.hs,*.md, *.R, *.r, *.tex, :call <SID>StripTrailingWhitespaces()
 
 " shortcuts
 nnoremap <leader>t :<C-u>tabnew<CR>
 nnoremap <leader>gs :Gstatus<CR>
 
 " opens search results in a window w/ links and highlight the matches
-command! -nargs=+ Grep execute 'silent grep! -I -r -n --exclude-dir=.git --exclude-dir=tmp --exclude=*.{log,sock,swo,swp}  . -e <args>' | copen | execute 'silent /<args>'
+command! -nargs=+ Grep execute 'silent grep! -I -r -n --exclude-dir=.git --exclude-dir=tmp --exclude-dir=log --exclude=*.{log,sock,swo,swp}  . -e <args>' | copen | execute 'silent /<args>'
 
 "OpenChangedFiles (<Leader>O)---------------------- {{{
 function! OpenChangedFiles()
@@ -160,7 +106,6 @@ noremap<Leader>o :OpenChangedFiles <CR>
 " }}}
 
 " SonicPi
-"
 nnoremap <leader>m :silent w !sonic_pi<CR>
 nnoremap <leader>n :call system("sonic_pi stop")<CR>
 
@@ -173,83 +118,8 @@ function! RSpecSpring()
   execute("!spring rspec " . expand("%p"))
 endfunction
 
-
 map ,as :call RSpecSpringLine()<CR>
 map ,s :call RSpecSpring()<CR>
-
-" agda-vim 
-nnoremap <buffer> <LocalLeader>l :Reload<CR>
-nnoremap <buffer> <LocalLeader>t :call Infer()<CR>
-nnoremap <buffer> <LocalLeader>r :call Refine("False")<CR>
-nnoremap <buffer> <LocalLeader>R :call Refine("True")<CR>
-nnoremap <buffer> <LocalLeader>g :call Give()<CR>
-nnoremap <buffer> <LocalLeader>c :call MakeCase()<CR>
-nnoremap <buffer> <LocalLeader>a :call Auto()<CR>
-nnoremap <buffer> <LocalLeader>e :call Context()<CR>
-nnoremap <buffer> <LocalLeader>n :call Normalize("False")<CR>
-nnoremap <buffer> <LocalLeader>N :call Normalize("True")<CR>
-nnoremap <buffer> <LocalLeader>M :call ShowModule()<CR>
-nnoremap <buffer> <LocalLeader>m :Metas<CR>
-
-" Add Agda libs 
-let g:agda_extraincpaths = ["agda-stdlib"]
-
-
-" funny ASCII 
-imap <leader>dunno ¯\_(ツ)_/¯
-" Combining marks
-imap <leader>over`  ̀
-imap <leader>over'  ́
-imap <leader>over^  ̂
-imap <leader>overv  ̌
-imap <leader>over~  ̃
-imap <leader>over-  ̄
-imap <leader>over_  ̅
-imap <leader>over–  ̅
-imap <leader>over—  ̅
-imap <leader>overcup  ̆
-imap <leader>overcap  ̑
-imap <leader>over.  ̇
-imap <leader>over..  ̈
-imap <leader>over  ̈
-imap <leader>over...  ⃛
-imap <leader>overright.  ͘
-imap <leader>overo  ̊
-imap <leader>over``  ̏
-imap <leader>over''  ̋
-imap <leader>overvec  ⃑
-imap <leader>vec  ⃑
-imap <leader>overlvec  ⃐
-imap <leader>lvec  ⃐
-imap <leader>overarc  ⃕
-imap <leader>overlarc  ⃔
-imap <leader>overto  ⃗
-imap <leader>overfrom  ⃖
-imap <leader>overfromto  ⃡
-imap <leader>over*  ⃰
-imap <leader>under`  ̖
-imap <leader>under'  ̗
-imap <leader>under,  ̗
-imap <leader>under.  ̣
-imap <leader>under..  ̤
-imap <leader>under  ̤
-imap <leader>undero  ̥
-imap <leader>under-  ̱
-imap <leader>under_  ̲
-imap <leader>under–  ̲
-imap <leader>under—  ̲
-imap <leader>through~  ̴
-imap <leader>through-  ̵
-imap <leader>through_  ̶
-imap <leader>through–  ̶
-imap <leader>through—  ̶
-imap <leader>through/  ̷
-imap <leader>not  ̷
-imap <leader>through?  ̸
-imap <leader>Not  ̸
-imap <leader>through\|  ⃒
-imap <leader>throughshortmid  ⃓
-imap <leader>througho  ⃘
 
 "Math
 imap <leader>: ∶
@@ -263,14 +133,6 @@ imap <leader>always □
 imap <leader>approx ≈
 imap <leader>bot ⊥
 imap <leader>box □
-imap <leader>boxdot ⊡
-imap <leader>box. ⊡
-imap <leader>boxminus ⊟
-imap <leader>box- ⊟
-imap <leader>boxplus ⊞
-imap <leader>box+ ⊞
-imap <leader>boxtimes ⊠
-imap <leader>box* ⊠
 imap <leader>bul •
 imap <leader>C ℂ
 imap <leader>cdot ∙
@@ -286,25 +148,16 @@ imap <leader>cclock ↺
 imap <leader>comp ∘
 imap <leader>contra ↯
 imap <leader>deg °
-imap <leader>den ⟦⟧<left>
-imap <leader>diamond ◇
 imap <leader>dots …
 imap <leader>down ↓
-imap <leader>downtri ▼
-imap <leader>Down ⇓
 imap <leader>dunion ⨃
 imap <leader>du ⨃
-imap <leader>ell ℓ
-imap <C-l> ℓ
 imap <leader>empty ∅
 imap <leader>equiv ≡
 imap <leader>eq ≡
 imap <leader>eventually ◇
 imap <leader>exists ∃
 imap <leader>flat ♭
-imap <leader>fold ⦇⦈<left>
-imap <leader>(\| ⦇
-imap <leader>\|) ⦈
 imap <leader>forall ∀
 imap <leader>from ←
 imap <leader><- ←
