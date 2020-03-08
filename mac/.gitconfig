@@ -1,26 +1,42 @@
 [user]
-	name = Robin Neumann
-	email = robin.neumann@absolventa.de
+	name = Robin Neumann\n
+	email = robin.neumann@posteo.de
 
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = /Users/robin/.gitignore_global
+	editor = nvim
 
 [color]
-	ui = auto
+  ui = auto
 
 [alias]
-	st = status
-	ci = commit
-	br = branch
-	co = checkout
-	df = diff
-	dc = diff --cached
-	lg = log -p
-	lol = log --graph --decorate --pretty=oneline --abbrev-commit
-	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	lala = log --graph --decorate --pretty=format:'\"%C(yellow)%h %Cred%cr %Cgreen[%aN]%C(blue)%d%Creset %s' --abbrev-commit --all
-	ls = ls-files
-	committers = shortlog -nse --no-merges
-	standup = log --since '1 day ago' --oneline --name-status --author robin.neumann@absolventa.de
-	standupmonday = log --since '3 days ago' --oneline --name-status --author robin.neumann@absolventa.de
-
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  dc = diff --cached
+  lg = log -p
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  lala = log --graph --decorate --pretty=format:'\"%C(yellow)%h %Cred%cr %Cgreen[%aN]%C(blue)%d%Creset %s' --abbrev-commit --all
+  ls = ls-files
+  committers = shortlog -nse --no-merges
+  standup = log --since '1 day ago' --oneline --name-status --author robin.neumann@absolventa.de
+  standupmonday = log --since '3 days ago' --oneline --name-status --author robin.neumann@absolventa.de
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[github]
+	user = neumanrq
+[merge]
+	tool = opendiff
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true
