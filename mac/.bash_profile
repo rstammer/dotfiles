@@ -57,9 +57,6 @@ export PATH=~/bin:$PATH
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-# MacPorts Installer addition on 2015-09-06_at_12:41:48: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-
 # added by Anaconda2 4.4.0 installer
 export PATH="/Users/robin/anaconda2/bin:$PATH"
 export PATH="/usr/local/opt/qt@5.5/bin:$PATH"
