@@ -44,6 +44,7 @@ alias restart_sound="sudo kill -9 `ps ax|grep 'coreaudio[a-z]' | awk '{print $1}
 alias ls='ls -G'
 alias migrate="bundle exec rails db:migrate && bundle exec rails db:migrate RAILS_ENV=test"
 alias rollback="bundle exec rails db:rollback && bundle exec rails db:rollback RAILS_ENV=test"
+alias delete_merged_branches='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
 
 # added for RabbitMQ
 PATH=$PATH:/usr/local/sbin
