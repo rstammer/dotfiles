@@ -45,6 +45,7 @@ alias ls='ls -G'
 alias migrate="bundle exec rails db:migrate && bundle exec rails db:migrate RAILS_ENV=test"
 alias rollback="bundle exec rails db:rollback && bundle exec rails db:rollback RAILS_ENV=test"
 alias delete_merged_branches='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
+alias fix=git diff --name-only | uniq | xargs $EDITOR
 
 # added for RabbitMQ
 PATH=$PATH:/usr/local/sbin
