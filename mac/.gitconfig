@@ -1,9 +1,9 @@
 [user]
-	name = Robin Neumann\n
-	email = robin.neumann@posteo.de
+	name = Robin Stammer
+	email = robin.stammer@posteo.de
 
 [core]
-	excludesfile = /Users/robin/.gitignore_global
+	excludesfile = /Users/robin.neumann/.gitignore_global
 	editor = nvim
 
 [color]
@@ -22,8 +22,6 @@
   lala = log --graph --decorate --pretty=format:'\"%C(yellow)%h %Cred%cr %Cgreen[%aN]%C(blue)%d%Creset %s' --abbrev-commit --all
   ls = ls-files
   committers = shortlog -nse --no-merges
-  standup = log --since '1 day ago' --oneline --name-status --author robin.neumann@absolventa.de
-  standupmonday = log --since '3 days ago' --oneline --name-status --author robin.neumann@absolventa.de
 [filter "media"]
 	required = true
 	clean = git media clean %f

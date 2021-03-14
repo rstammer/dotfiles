@@ -18,12 +18,19 @@ Plug 'kassio/neoterm'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-grepper'
+Plug 'leanprover/lean.vim'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': './install.sh'
     \ }
 Plug 'dense-analysis/ale'
 call plug#end()
+
+map <silent> <PageUp> 1000<C-U>
+map <silent> <PageDown> 1000<C-D>
+imap <silent> <PageUp> <C-O>1000<C-U>
+imap <silent> <PageDown> <C-O>1000<C-D>
+set nostartofline
 
 " Start R with localleader + rf
 "
@@ -46,6 +53,7 @@ set tabstop=2
 set softtabstop=2
 let r_indent_align_args = 0
 
+set nobomb
 set autoindent
 set smarttab
 set expandtab " Always convert tabs to spaces
@@ -101,7 +109,7 @@ function! <SID>StripTrailingWhitespaces()
   let l = line(".")
   let c = col(".")
   " Do the business:
-  %s/\s\+$//e
+  %s∧s\+$//e
   " Clean up: restore previous search history, and cursor position
   let @/=_s
   call cursor(l, c)
@@ -111,20 +119,20 @@ autocmd BufWritePre *.haml,*.rb,*.erb,*.py,*.js,*.rake,*.ex,*.exs,*.hs,*.md,*.R,
 " shortcuts
 nnoremap <leader>t :<C-u>tabnew<CR>
 nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>d :set bg=dark<CR>
-nnoremap <leader>l :set bg=light<CR>
-
+" nnoremap <leader>d :set bg=dark<CR>
+" nnoremap <leader>l :set bg=light<CR>
+"
 " opens search results in a window w/ links and highlight the matches
 command! -nargs=+ Grep execute 'silent grep! -I -r -n --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=tmp --exclude-dir=log --exclude=*.{log,sock,swo,swp}  . -e <args>' | copen | execute 'silent /<args>'
 
 " SonicPi
-" Somehow does not play well with Nvim-R
+" Somehow does ¬ play well with Nvim-R
 " nnoremap <leader>m :silent w !sonic_pi<CR>
 " nnoremap <leader>n :SonicPiStop<CR>
 
 let g:vim_redraw = 1
 
-let test#ruby#rspec#executable = 'spring rspec'
+let test#ruby#rspec#executable = 'rspec'
 " let test#strategy = "neovim"
 " let g:test#preserve_screen = 1
 "
@@ -181,9 +189,9 @@ imap <leader>empty ∅
 imap <leader>equiv ≡
 imap <leader>eq ≡
 imap <leader>eventually ◇
-imap <leader>exists ∃
+imap <leader>∃ ∃
 imap <leader>flat ♭
-imap <leader>forall ∀
+imap <leader>∀ ∀
 imap <leader>from ←
 imap <leader><- ←
 imap <leader>From ⇐
@@ -323,7 +331,7 @@ imap <leader>to →
 imap <leader>- →
 imap <C-_> →
 imap <leader>To ⇒
-imap <leader>= ⇒
+imap <leader≥ ⇒
 imap <leader>top ⊤
 imap <leader>tuple ⟨⟩<left>
 imap <leader>up ↑
