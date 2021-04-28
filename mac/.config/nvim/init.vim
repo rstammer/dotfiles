@@ -24,6 +24,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': './install.sh'
     \ }
 Plug 'dense-analysis/ale'
+Plug 'stevearc/vim-arduino'
 call plug#end()
 
 map <silent> <PageUp> 1000<C-U>
@@ -109,13 +110,13 @@ function! <SID>StripTrailingWhitespaces()
   let l = line(".")
   let c = col(".")
   " Do the business:
-  %s∧s\+$//e
+  %s/\s\+$//e
   " Clean up: restore previous search history, and cursor position
   let @/=_s
   call cursor(l, c)
 endfunction
 autocmd BufWritePre *.haml,*.rb,*.erb,*.py,*.js,*.rake,*.ex,*.exs,*.hs,*.md,*.R,*.r,*.tex,*.css,*.scss :call <SID>StripTrailingWhitespaces()
-
+"
 " shortcuts
 nnoremap <leader>t :<C-u>tabnew<CR>
 nnoremap <leader>gs :Gstatus<CR>
