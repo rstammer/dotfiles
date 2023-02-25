@@ -16,7 +16,7 @@ else
 fi
 
 echo "Pouring together basic tools 🔧"
-brew install tmux git neovim
+brew install tmux git neovim asdf
 
 echo "Symlink important dotfiles 🔄"
 dotfiles=".zshrc .gitconfig .tmux.conf"

@@ -3,7 +3,7 @@
 	email = robin.stammer@posteo.de
 
 [core]
-	excludesfile = /Users/robin.neumann/.gitignore_global
+	excludesfile = /Users/robinstammer/.gitignore
 	editor = nvim
 
 [color]
@@ -27,7 +27,7 @@
 	clean = git media clean %f
 	smudge = git media smudge %f
 [github]
-	user = neumanrq
+	user = rstammer
 [merge]
 	tool = opendiff
 [filter "hawser"]
@@ -38,3 +38,5 @@
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f
 	required = true
+[init]
+	defaultBranch = main

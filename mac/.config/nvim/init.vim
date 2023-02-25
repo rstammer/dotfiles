@@ -4,27 +4,17 @@ filetype off
 call plug#begin()
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-fugitive'
-Plug 'dag/vim2hs'
-Plug 'derekelkins/agda-vim'
-Plug 'trefis/coquille'
-Plug 'elixir-lang/vim-elixir'
-Plug 'dermusikman/sonicpi.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'godlygeek/tabular'
 Plug 'iCyMind/NeoSolarized'
-Plug 'jalvesaq/Nvim-R'
+Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 Plug 'janko-m/vim-test'
 Plug 'kassio/neoterm'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-grepper'
 Plug 'leanprover/lean.vim'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': './install.sh'
-    \ }
 Plug 'dense-analysis/ale'
-Plug 'stevearc/vim-arduino'
 call plug#end()
 
 map <silent> <PageUp> 1000<C-U>
