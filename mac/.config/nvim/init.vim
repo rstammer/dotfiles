@@ -15,6 +15,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-grepper'
 Plug 'leanprover/lean.vim'
 Plug 'dense-analysis/ale'
+Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 call plug#end()
 
 map <silent> <PageUp> 1000<C-U>
