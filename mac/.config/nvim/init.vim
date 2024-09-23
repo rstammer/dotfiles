@@ -7,6 +7,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tomtom/tcomment_vim'
 Plug 'godlygeek/tabular'
 Plug 'iCyMind/NeoSolarized'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'craftzdog/solarized-osaka.nvim'
 Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 Plug 'janko-m/vim-test'
 Plug 'kassio/neoterm'
@@ -28,11 +30,13 @@ set nostartofline
 "
 filetype plugin indent on
 set bg=dark 
-colorscheme NeoSolarized
+"colorscheme NeoSolarized
 "colorscheme solarized
+colorscheme solarized-osaka
 
 let mapleader = ","
 let maplocalleader = "."
+set termguicolors
 
 set nocompatible
 set nobackup
