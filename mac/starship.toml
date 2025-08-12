@@ -1,0 +1,136 @@
+# Starship Configuration
+# Inspired by omakub/DHH style
+
+format = """
+[](#9A348E)\
+$os\
+$username\
+[](bg:#DA627D fg:#9A348E)\
+$directory\
+[](fg:#DA627D bg:#FCA17D)\
+$git_branch\
+$git_status\
+[](fg:#FCA17D bg:#86BBD8)\
+$c\
+$elixir\
+$elm\
+$golang\
+$gradle\
+$haskell\
+$java\
+$julia\
+$nodejs\
+$nim\
+$rust\
+$scala\
+$python\
+[](fg:#86BBD8 bg:#06969A)\
+$docker_context\
+[](fg:#06969A bg:#33658A)\
+$time\
+[ ](fg:#33658A)\
+$line_break$character"""
+
+[os]
+disabled = false
+style = "bg:#9A348E fg:#ffffff"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+[username]
+show_always = true
+style_user = "bg:#9A348E fg:#ffffff"
+style_root = "bg:#9A348E fg:#ffffff"
+format = '[ $user ]($style)'
+disabled = false
+
+[directory]
+style = "fg:#ffffff bg:#DA627D"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+[git_branch]
+symbol = ""
+style = "bg:#FCA17D"
+format = '[[ $symbol $branch ](fg:#ffffff bg:#FCA17D)]($style)'
+
+[git_status]
+style = "bg:#FCA17D"
+format = '[[($all_status$ahead_behind )](fg:#ffffff bg:#FCA17D)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:#86BBD8"
+format = '[[ $symbol ($version) ](fg:#ffffff bg:#86BBD8)]($style)'
+
+[python]
+symbol = ""
+style = "bg:#86BBD8"
+format = '[[ $symbol ($version) ](fg:#ffffff bg:#86BBD8)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:#86BBD8"
+format = '[[ $symbol ($version) ](fg:#ffffff bg:#86BBD8)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:#86BBD8"
+format = '[[ $symbol ($version) ](fg:#ffffff bg:#86BBD8)]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:#06969A"
+format = '[[ $symbol $context ](fg:#ffffff bg:#06969A)]($style)'
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:#33658A"
+format = '[[ ♥ $time ](fg:#ffffff bg:#33658A)]($style)'
+
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+success_symbol = '[](bold fg:green)'
+error_symbol = '[](bold fg:red)'
+vimcmd_symbol = '[](bold fg:cyan)'
+format = '$symbol '
+
+# Disable modules we don't need
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[kubernetes]
+disabled = true

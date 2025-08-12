@@ -5,6 +5,7 @@
 [core]
 	excludesfile = /Users/robinstammer/.gitignore
 	editor = nvim
+	pager = delta
 
 [color]
   ui = auto
@@ -30,6 +31,7 @@
 	user = rstammer
 [merge]
 	tool = opendiff
+	conflictstyle = diff3
 [filter "hawser"]
 	clean = git hawser clean %f
 	smudge = git hawser smudge %f
@@ -40,3 +42,10 @@
 	required = true
 [init]
 	defaultBranch = main
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	light = false
+[diff]
+	colorMoved = default
