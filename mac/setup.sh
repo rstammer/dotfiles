@@ -25,13 +25,13 @@ for file in $dotfiles; do
   ln -s $HOME/dotfiles/mac/$file $HOME/$file
 done
 
-echo "Configuring neovim 📟"
+echo "Configuring neovim with LazyVim 📟"
 
-mkdir -p $HOME/.config/nvim
+mkdir -p $HOME/.config
 
-# Install vim-plug
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+# Remove existing nvim config if it exists
+if [ -L "$HOME/.config/nvim" ] || [ -d "$HOME/.config/nvim" ]; then
+  rm -rf $HOME/.config/nvim
+fi
 
-ln -s $HOME/dotfiles/mac/.config/nvim/init.vim $HOME/.config/nvim/init.vim
-nvim +PlugInstall +qa
+ln -s $HOME/dotfiles/mac/nvim $HOME/.config/nvim

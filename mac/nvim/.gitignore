@@ -1,0 +1,27 @@
+# LazyVim template files (keep these in version control)
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+
+# Don't version control the lock file - let each machine generate its own
+lazy-lock.json
+
+# LSP and cache files
+.luarc.json
+
+# Session files
+Session.vim
+.session
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Local configuration that shouldn't be shared
+lua/config/local.lua
